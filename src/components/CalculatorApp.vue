@@ -1,18 +1,20 @@
 <template>
   <div class="main-container">
-    <div class="container__calc">
-      <div>
-        <p class="text">Tip Amount</p>
-        <p>/ person</p>
+    <div>
+      <div class="container__calc">
+        <div>
+          <p class="text">Tip Amount</p>
+          <p>/ person</p>
+        </div>
+        <span class="amount">$4.27</span>
       </div>
-      <span class="amount">$4.27</span>
-    </div>
-    <div class="container__calc" id="total">
-      <div>
-        <p class="text">Total</p>
-        <p>/ person</p>
+      <div class="container__calc" id="total">
+        <div>
+          <p class="text">Total</p>
+          <p>/ person</p>
+        </div>
+        <span class="amount">$32.79</span>
       </div>
-      <span class="amount">$32.79</span>
     </div>
     <button>RESET</button>
   </div>
@@ -58,6 +60,32 @@ export default {};
     justify-content: center;
     padding: 12px 0;
     width: 100%;
+    transition: background-color 100ms ease;
+  }
+}
+
+@media (min-width: 1024px) {
+  .main-container {
+    height: 100%;
+    padding: 40px 30px 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    & #total {
+      margin-top: 40px;
+    }
+    & .text {
+      font-size: 20px;
+    }
+
+    & .amount {
+      font-size: 40px;
+    }
+    & button:hover {
+      cursor: pointer;
+      background-color: var(--xy-c-light-grayish-cyan);
+    }
   }
 }
 </style>

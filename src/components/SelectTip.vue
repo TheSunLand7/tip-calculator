@@ -35,15 +35,35 @@ p {
   }
   & input {
     background-color: var(--xy-c-very-light-grayish-cyan);
+    border-radius: 5px;
     border: none;
-    text-align: end;
+    color: var(--xy-c-very-dark-cyan);
+    font-family: var(--font-principal);
+    font-size: 22px;
     outline: 2px solid var(--xy-c-very-light-grayish-cyan);
     padding: 8px 15px;
-    &::placeholder {
+    text-align: end;
+    transition: outline 100ms ease-in-out;
+  }
+}
+
+@media (min-width: 768px) {
+  .percent-container {
+    & div:hover {
+      background-color: var(--xy-c-light-grayish-cyan);
       color: var(--xy-c-very-dark-cyan);
-      font-family: var(--font-principal);
-      font-size: 22px;
+      cursor: pointer;
     }
+    & input:hover {
+      cursor: pointer;
+      outline: 2px solid var(--xy-c-strong-cyan);
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .percent-container {
+    grid-template: repeat(2, max-content) / repeat(3, minmax(130px, 1fr));
   }
 }
 </style>

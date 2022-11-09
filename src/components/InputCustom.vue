@@ -8,6 +8,7 @@
         type="text"
         id="bill"
         :style="{ backgroundImage: 'url(' + bgUrl + ')' }"
+        placeholder="0"
       />
     </label>
   </div>
