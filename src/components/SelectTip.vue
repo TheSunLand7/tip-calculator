@@ -38,7 +38,7 @@ p {
     border: none;
     text-align: end;
     outline: 2px solid var(--xy-c-very-light-grayish-cyan);
-    padding: 8px 5px;
+    padding: 8px 15px;
     &::placeholder {
       color: var(--xy-c-very-dark-cyan);
       font-family: var(--font-principal);

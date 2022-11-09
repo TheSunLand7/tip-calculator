@@ -9,22 +9,27 @@ import TipCalculator from "@/components/TipCalculator.vue";
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="postcss">
 h1 {
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  top: 0;
+  font-size: 24px;
+  padding: 40px 0;
+  font-weight: lighter;
   width: 100%;
   color: var(--xy-c-very-dark-cyan);
+  & span {
+    letter-spacing: 8px;
+  }
 }
 main {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: auto;
   background-color: var(--vt-c-white);
-  padding: 40px;
+  padding: 30px;
   border-radius: 20px 20px 0 0;
 }
 </style>

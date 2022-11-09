@@ -1,11 +1,15 @@
 <template>
   <div class="bill-input">
-    <label for="bill">{{ title }}</label>
-    <input
-      type="text"
-      id="bill"
-      :style="{ backgroundImage: 'url(' + bgUrl + ')' }"
-    />
+    <label>
+      <span>
+        {{ title }}
+      </span>
+      <input
+        type="text"
+        id="bill"
+        :style="{ backgroundImage: 'url(' + bgUrl + ')' }"
+      />
+    </label>
   </div>
 </template>
 
@@ -20,8 +24,6 @@ export default {
 
 <style scoped lang="postcss">
 .bill-input {
-  display: flex;
-  flex-direction: column;
   & input {
     background: no-repeat 15px scroll var(--xy-c-very-light-grayish-cyan);
     border-radius: 5px;
@@ -30,15 +32,19 @@ export default {
     font-family: var(--font-principal);
     font-size: 20px;
     outline: 2px solid var(--xy-c-very-light-grayish-cyan);
-    padding: 6px 10px 6px 35px;
+    padding: 6px 15px 6px 35px;
     text-align: end;
   }
   & input:focus {
     outline: 2px solid var(--xy-c-strong-cyan);
   }
   & label {
+    display: flex;
+    flex-direction: column;
     color: var(--xy-c-very-dark-cyan);
-    margin-bottom: 5px;
+    & span {
+      margin-bottom: 8px;
+    }
   }
 }
 
