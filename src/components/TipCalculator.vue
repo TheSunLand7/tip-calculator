@@ -1,19 +1,32 @@
 <script lang="ts">
 import InputCustom from "@/components/InputCustom.vue";
 import SelectTip from "@/components/SelectTip.vue";
-export default { components: { InputCustom, SelectTip } };
+
+export default {
+  data() {
+    return {
+      buttonValue: 0,
+    };
+  },
+  components: { InputCustom, SelectTip },
+  methods: {
+    buttonSelected(button: Array<HTMLButtonElement>, id: number) {
+      this.buttonValue = +button[id].value;
+    },
+  },
+};
 </script>
 
 <template>
   <div class="container-tip">
     <div class="input-custom">
-      <input-custom title="Bills" bgUrl="/images/icon-dollar.svg" />
+      <InputCustom title="Bills" bgUrl="/images/icon-dollar.svg" />
     </div>
     <div class="select-tip">
-      <select-tip />
+      <SelectTip @selected="buttonSelected" />
     </div>
     <div class="input-custom">
-      <input-custom title="Number of people" bgUrl="/images/icon-person.svg" />
+      <InputCustom title="Number of people" bgUrl="/images/icon-person.svg" />
     </div>
   </div>
 </template>

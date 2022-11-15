@@ -6,22 +6,55 @@
           <p class="text">Tip Amount</p>
           <p>/ person</p>
         </div>
-        <span class="amount">$4.27</span>
+        <span class="amount">${{ tipAmount.toFixed(2) }}</span>
       </div>
       <div class="container__calc" id="total">
         <div>
           <p class="text">Total</p>
           <p>/ person</p>
         </div>
-        <span class="amount">$32.79</span>
+        <span class="amount">${{ totalPerson.toFixed(2) ?? 0 }}</span>
       </div>
     </div>
-    <button>RESET</button>
+    <button :disabled="!(totalPerson && tipAmount)" @click="reset">
+      RESET
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-export default {};
+export default {
+  props: {
+    total: {
+      type: Number,
+      default: 0,
+    },
+    bill: {
+      type: Number,
+      default: 0,
+    },
+    people: {
+      type: Number,
+      default: 1,
+    },
+  },
+  computed: {
+    tipAmount() {
+      if (this.people) return (this.total! * 0.01 * this.bill!) / this.people!;
+      return 0;
+    },
+    totalPerson() {
+      if (this.people)
+        return (this.total! * 0.01 * this.bill! + this.bill!) / this.people!;
+      return 0;
+    },
+  },
+  methods: {
+    reset() {
+      location.reload();
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -62,6 +95,11 @@ export default {};
     width: 100%;
     transition: background-color 100ms ease;
   }
+  & button:disabled {
+    background-color: var(--xy-c-dark-grayish-cyan);
+    color: var(--xy-c-very-dark-cyan);
+    cursor: not-allowed;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -82,7 +120,7 @@ export default {};
     & .amount {
       font-size: 40px;
     }
-    & button:hover {
+    & button:not(:disabled):hover {
       cursor: pointer;
       background-color: var(--xy-c-light-grayish-cyan);
     }

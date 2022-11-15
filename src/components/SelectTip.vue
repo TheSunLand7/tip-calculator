@@ -1,19 +1,55 @@
 <template>
   <div>
     <p>Select Tip %</p>
-    <div class="percent-container">
-      <div>5%</div>
-      <div>10%</div>
-      <div>15%</div>
-      <div>25%</div>
-      <div>50%</div>
-      <input type="text" placeholder="Custom" />
+    <div class="percent-container" @click="changeBg">
+      <button
+        v-for="(percent, i) in percents"
+        :key="i"
+        ref="button"
+        :value="percent"
+        @click="$emit('selected', $refs.button, i)"
+      >
+        {{ percent }}%
+      </button>
+      <input
+        type="number"
+        placeholder="Custom"
+        ref="input"
+        @input="$emit('inputTip', $refs.input)"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-export default {};
+export default {
+  data() {
+    return {
+      isActive: false,
+      activeClass: "active",
+      percents: [5, 10, 15, 25, 50],
+      selected: "",
+    };
+  },
+  methods: {
+    removeBg(buttons: HTMLButtonElement[]) {
+      buttons.forEach((button) => {
+        if (button.getAttribute("class") === "active") {
+          button.classList.remove("active");
+        }
+      });
+    },
+    changeBg(event: Event) {
+      if ((event.target as HTMLButtonElement).nodeName === "BUTTON") {
+        this.removeBg(this.$refs.button as HTMLButtonElement[]);
+        (event.target as HTMLButtonElement).classList.add("active");
+        this.selected = (event.target as HTMLButtonElement).value;
+      } else if ((event.target as HTMLInputElement).nodeName === "INPUT") {
+        this.removeBg(this.$refs.button as Array<HTMLButtonElement>);
+      }
+    },
+  },
+};
 </script>
 
 <style lang="postcss" scoped>
@@ -25,13 +61,18 @@ p {
   display: grid;
   gap: 10px;
   grid-template: repeat(3, max-content) / repeat(2, minmax(130px, 1fr));
-  & div {
+  & button {
     background-color: var(--xy-c-very-dark-cyan);
     border-radius: 5px;
     color: var(--xy-c-very-light-grayish-cyan);
     font-size: 22px;
     padding: 8px 0;
+    border: none;
+    font-family: var(--font-principal);
     text-align: center;
+  }
+  & .active {
+    background-color: var(--xy-c-strong-cyan);
   }
   & input {
     background-color: var(--xy-c-very-light-grayish-cyan);
@@ -44,12 +85,15 @@ p {
     padding: 8px 15px;
     text-align: end;
     transition: outline 100ms ease-in-out;
+    &:focus {
+      outline: 2px solid var(--xy-c-strong-cyan);
+    }
   }
 }
 
 @media (min-width: 768px) {
   .percent-container {
-    & div:hover {
+    & button:hover {
       background-color: var(--xy-c-light-grayish-cyan);
       color: var(--xy-c-very-dark-cyan);
       cursor: pointer;

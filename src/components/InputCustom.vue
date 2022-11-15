@@ -1,14 +1,21 @@
 <template>
   <div class="bill-input">
     <label>
-      <span>
-        {{ title }}
-      </span>
+      <div>
+        <span>
+          {{ title }}
+        </span>
+        <p v-if="isError">{{ message }}</p>
+      </div>
       <input
-        type="text"
+        type="number"
         id="bill"
-        :style="{ backgroundImage: 'url(' + bgUrl + ')' }"
+        :style="{ backgroundImage: `url(${bgUrl})` }"
         placeholder="0"
+        v-model="valor"
+        ref="input"
+        :class="isError ? errorClass : ''"
+        @input="$emit('inputValue', $refs.input)"
       />
     </label>
   </div>
@@ -19,6 +26,19 @@ export default {
   props: {
     title: String,
     bgUrl: String,
+  },
+  data() {
+    return {
+      isError: false,
+      errorClass: "error",
+      valor: "",
+      message: "Can't be zero",
+    };
+  },
+  watch: {
+    valor(val) {
+      val === 0 ? (this.isError = true) : (this.isError = false);
+    },
   },
 };
 </script>
@@ -43,8 +63,20 @@ export default {
     display: flex;
     flex-direction: column;
     color: var(--xy-c-very-dark-cyan);
-    & span {
-      margin-bottom: 8px;
+    & div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      & p {
+        color: red;
+      }
+    }
+  }
+  & .error {
+    outline: 2px solid red;
+    &:focus {
+      outline: 2px solid red;
     }
   }
 }
